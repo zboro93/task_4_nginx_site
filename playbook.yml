@@ -1,13 +1,4 @@
 ---
-#Projekt: Automatyczna konfiguracja serwera
-
-#Utwórz playbook, który:
-
-#Instaluje nginx.
-
-#Kopiuje plik index.html na serwer.
-
-#Ustawia firewalla (port 80 open).
 -
 
   hosts: all
@@ -58,5 +49,6 @@
       service:
         name: nginx
         state: restarted
+
 
 ...
