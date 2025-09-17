@@ -1,0 +1,62 @@
+---
+#Projekt: Automatyczna konfiguracja serwera
+
+#Utwórz playbook, który:
+
+#Instaluje nginx.
+
+#Kopiuje plik index.html na serwer.
+
+#Ustawia firewalla (port 80 open).
+-
+
+  hosts: all
+  become: yes
+  tasks:
+
+    - name: Update apt
+      apt:
+        update_cache: yes
+        upgrade: dist
+
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+
+    - name: Enable port 80
+      ufw:
+        rule: allow
+        port: 80
+        proto: tcp
+
+    - name: Ensure webpage dir
+      file:
+        path: /var/www/webpage/
+        state: directory
+        mode: '0755'
+
+    - name: copy index.html
+      copy:
+       src: /home/root/devops_tasks/my_learning/task4/index.html
+       dest: /var/www/webpage/
+       mode: '0644'
+
+    - name: set up virtual hosts
+      copy:
+        src: /home/root/devops_tasks/my_learning/task4/webpage
+        dest: /etc/nginx/sites-available/webpage.conf
+        mode: '0644'
+
+    - name: Enable site
+      file:
+        src: /etc/nginx/sites-available/webpage.conf
+        dest: /etc/nginx/sites-enabled/webpage.conf
+        state: link
+
+    - name: start Nginx
+      service:
+        name: nginx
+        state: restarted
+
+...
