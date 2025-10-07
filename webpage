@@ -1,0 +1,22 @@
+<html>
+        <head>
+                <title> Nginx site </title>
+        </head>
+        <body>
+                <p> Hello World!
+        </body>
+</html>
+root@ubuntu24:/home/root/devops_tasks/my_learning/task4# cat webpage
+server {
+       listen 80;
+       listen [::]:80;
+
+       server_name webpage.ubuntu.com;
+
+       root /var/www/webpage;
+       index index.html;
+
+       location / {
+               try_files $uri $uri/ =404;
+       }
+}
