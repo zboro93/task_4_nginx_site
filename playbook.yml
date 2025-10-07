@@ -32,7 +32,12 @@
        src: /tmp/task-nginx/index.html
        dest: /var/www/webpage/
        mode: '0644'
-
+       
+    - name: remove default nginx site
+      file:
+        path: /etc/nginx/sites-enabled/default
+        state: absent
+    
     - name: set up virtual hosts
       copy:
         src: /tmp/task-nginx/webpage
@@ -52,4 +57,5 @@
 
 
 ...
+
 
