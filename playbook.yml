@@ -29,13 +29,13 @@
 
     - name: copy index.html
       copy:
-       src: /home/root/devops_tasks/my_learning/task4/index.html
+       src: /tmp/task-nginx/index.html
        dest: /var/www/webpage/
        mode: '0644'
 
     - name: set up virtual hosts
       copy:
-        src: /home/root/devops_tasks/my_learning/task4/webpage
+        src: /tmp/task-nginx/webpage
         dest: /etc/nginx/sites-available/webpage.conf
         mode: '0644'
 
@@ -52,3 +52,4 @@
 
 
 ...
+
